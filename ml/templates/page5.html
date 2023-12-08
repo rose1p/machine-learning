@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{%block main_area%}
+    <div class="my-5 row justify-content-center">
+        <h1 class="text-center mb-5">K - 평균</h1>
+        <div class="col-8">
+            <form name="frm">
+                <div class="input-group">
+                    <span class="input-group-text">클러스터지수</span>
+                    <select class="form-select" name="K">
+                        <option value="1">1개</option>
+                        <option value="2">2개</option>
+                        <option value="3">3개</option>
+                        <option value="4">4개</option>
+                        <option value="5" selected>5개</option>
+                        <option value="6">6개</option>
+                        <option value="7">7개</option>
+                        <option value="8">8개</option>
+                        <option value="9">9개</option>
+                        <option value="10">10개</option>
+                    </select>
+                    <button class="btn btn-primary">그래프 출력</button>
+                </div>
+            </form>
+            <div>
+                <img src="http://via.placeholder.com/200x150" width="100%" id="graph">
+            </div>
+        </div>
+    </div>
+    <script>
+        $(frm).on("submit", function(e) {
+            e.preventDefault();
+            $("#graph").attr("src", "/score/kmean/graph/" + $(frm.K).val());
+        })
+    </script>
+{%endblock%}

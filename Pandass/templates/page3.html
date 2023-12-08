@@ -1,0 +1,50 @@
+{%extends 'base.html'%}
+{%block main_area%}
+    <div class="my-5">
+        <h1 class="text-center mb-5">이름검색</h1>
+        <form name="frm">
+            <div class="input-group">
+                <input class="form-control" placeholder="이름" name="query">
+                <button class="btn btn-primary" type="submit">검색</button>
+            </div>
+        </form>
+        <div id="div_list"></div>
+    </div>
+    {% raw %}
+    <script id="temp_list" type="x-handlebars-template">
+        <table class="table">
+        {{#each .}}
+            <tr>
+                <td>{{학교}}</td>
+                <td>{{이름}}<td>
+                <td>{{키}}<td>
+                <td>{{국어}}</td>
+                <td>{{영어}}</td>
+                <td>{{SW특기}}</td>
+            </tr>    
+        {{/each}}
+        </table>
+    </script>
+    {% endraw %}
+    <script>
+        $(frm).on("submit", function(e){
+            e.preventDefault();
+            getList();
+        });
+
+        getList();
+        function getList(){
+            $.ajax({
+                type:"get",
+                url:"/score/list.json",
+                data:{query:$(frm.query).val()},
+                dataType:"json",
+                success:function(data){
+                    console.log(data);
+                    temp=Handlebars.compile($("#temp_list").html());
+                    $("#div_list").html(temp(data));
+                }
+            })
+        }
+    </script>
+{%endblock%}

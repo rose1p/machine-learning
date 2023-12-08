@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{%block main_area%}
+    <div class="my-5">
+        <h1 class="text-center mb-5">그래프</h1>
+        <div class="text-center">
+            <button id="btn1">국어</button>
+            <button id="btn2">영어</button>
+            <button id="btn3">수학</button>
+        </div>
+        <div class="text-center">
+            <h5 id="title"></h5>
+            <img id="cahrt" src="/score/chart/수학">
+        </div>
+    </div>
+    <script>
+        $("#btn1, #btn2, #btn3").on("click", function() {
+            const subject = $(this).html();
+            $("#title").html(subject);
+            //alert(subject);
+            $("#cahrt").attr("src", `/score/chart/${subject}`);
+        });
+    </script>
+{%endblock%}
